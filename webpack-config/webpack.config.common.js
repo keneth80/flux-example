@@ -1,9 +1,6 @@
-// const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const HtmlWebPackPlugin      = require('html-webpack-plugin');
-const BundleAnalyzerPlugin   = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-// const htmlWebpackInjectStringPlugin = require('html-webpack-inject-string-plugin');
+const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 const helpers = require('./helpers');
  
@@ -24,7 +21,6 @@ module.exports = {
             },
             {
                 test: /\.js$/,
-                // exclude: /node_modules/,
                 exclude : [
                     /\bcore-js\b/,
                     /\bwebpack\/buildin\b/
@@ -33,7 +29,10 @@ module.exports = {
                     loader: 'babel-loader',
                     options: {
                         sourceType: 'unambiguous',
-                        presets: ['@babel/preset-env']
+                        presets: [
+                            '@babel/preset-env',
+                            // '@babel/preset-typescript',
+                        ]
                     }
                 }
             },
@@ -41,19 +40,26 @@ module.exports = {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader']
             },
-            {
+            { // 글꼴 파일을 복사하지 않고 문자열 형태로 번들 파일에 첨부해주는 역할.
                 test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-                // loader: 'url?limit=10000'
-                use: 'url-loader'
+                use: {
+                    loader: 'url-loader',
+                    options: {
+                        name: '[name].[ext]?[hash]',
+                        publicPath: './dist/',
+                        // limit: 10000 // 10kb 제한
+                    },
+                }
             },
-            {
+            { // 파일들을 복사하는 역할.
                 test: /\.(txt|csv|svg)$/,
-                use: [
-                    {
-                        loader: 'file-loader',
-                        options: {}
+                use: {
+                    loader: 'file-loader',
+                    options: {
+                        publicPath: './dist/',
+                        name: '[name].[ext]?[hash]', // hash 위함.
                     }
-                ]
+                }
             }
         ]
     },
@@ -68,19 +74,12 @@ module.exports = {
             filename: './index.html'
         }),
 
-        new CopyWebpackPlugin([
-            { from: './src/assets/**', to: './assets', flatten: true }
-        ]),
-
-        new BundleAnalyzerPlugin(
+        new CopyWebpackPlugin(
             {
-                analyzerMode: "static",               // 분석결과를 파일로 저장
-                reportFilename: "dist/stats.html", // 분설결과 파일을 저장할 경로와 파일명 지정
-                defaultSizes: "parsed",
-                openAnalyzer: false,                   // 웹팩 빌드 후 보고서파일을 자동으로 열지 여부
-                generateStatsFile: true,              // 웹팩 stats.json 파일 자동생성
-                statsFilename: "dist/stats.json", // stats.json 파일명 rename
+                patterns: [
+                    { from: './src/assets/**', to: './assets' }
+                ]
             }
-        )
+        ),
     ]
 };

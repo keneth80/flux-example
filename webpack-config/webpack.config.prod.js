@@ -1,20 +1,30 @@
 'use strict';
 
-const webpackMerge            = require('webpack-merge');
-const UglifyJsPlugin          = require('uglifyjs-webpack-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const cssnano                 = require('cssnano');
+const { merge } = require('webpack-merge');
+const commonConfig = require('./webpack.config.common');
+const helpers = require('./helpers');
 
-const commonConfig            = require('./webpack.config.common');
-const helpers                 = require('./helpers');
+const TerserPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
-module.exports = webpackMerge(commonConfig, {
+
+module.exports = merge(commonConfig, {
     mode: 'production',
+
+    module: {
+        rules: [
+            {
+                test: /.s?css$/,
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
+            },
+        ],
+    },
 
     output: {
         path: helpers.root('dist'),
         publicPath: '/',
-        filename: '[hash].js',
+        filename: '[name].[contenthash].js',
         chunkFilename: '[id].[hash].chunk.js'
     },
 
@@ -29,22 +39,15 @@ module.exports = webpackMerge(commonConfig, {
                 }
             }
         },
-        runtimeChunk: 'single',
+        runtimeChunk: 'single', // 생성된 모든 청크에서 공유할 런타임 파일을 생성
+        minimize: true,
         minimizer: [
-            new UglifyJsPlugin({
-                cache: true,
+            new TerserPlugin({
                 parallel: true
             }),
-
-            new OptimizeCSSAssetsPlugin({
-                cssProcessor: cssnano,
-                cssProcessorOptions: {
-                    discardComments: {
-                        removeAll: true
-                    }
-                },
-                canPrint: false
-            })
+            new CssMinimizerPlugin(),
         ]
-    }
+    },
+
+    plugins: [new MiniCssExtractPlugin({ filename: 'main-style.css' })],
 });

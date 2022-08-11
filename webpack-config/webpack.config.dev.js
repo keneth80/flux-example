@@ -1,28 +1,20 @@
 'use strict';
 
-const webpackMerge = require('webpack-merge');
-
+const { merge } = require('webpack-merge');
 const commonConfig = require('./webpack.config.common');
-const helpers      = require('./helpers');
+const helpers = require('./helpers');
 
-module.exports = webpackMerge(commonConfig, {
+module.exports = merge(commonConfig, {
     mode: 'development',
-
-    devtool: 'cheap-module-eval-source-map',
 
     output: {
         path: helpers.root('dist'),
         publicPath: '/',
-        filename: '[name].bundle.js',
+        filename: '[name].[contenthash].js',
         chunkFilename: '[id].chunk.js'
     },
 
     optimization: {
-        noEmitOnErrors: true
-    },
-
-    devServer: {
-        historyApiFallback: true,
-        stats: 'minimal'
+        noEmitOnErrors: true // 빌드중 오류를 확인하기 위함.
     }
 });
