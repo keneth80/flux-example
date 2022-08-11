@@ -7,7 +7,7 @@ const helpers = require('./helpers');
 module.exports = {
     entry: './src/main.ts',
     resolve: {
-        extensions: ['.js', '.ts']
+        extensions: ['.js', '.ts', '...']
     },
     devtool: 'inline-source-map',
     module: {
@@ -16,22 +16,21 @@ module.exports = {
                 test: /\.ts$/,
                 exclude: /node_modules/,
                 use: {
-                    loader: 'ts-loader'
+                    loader: 'ts-loader',
+                    options: {
+                        transpileOnly: true
+                    }
                 }
             },
             {
                 test: /\.js$/,
-                exclude : [
-                    /\bcore-js\b/,
-                    /\bwebpack\/buildin\b/
-                ],
+                exclude : /node_modules/,
                 use: {
                     loader: 'babel-loader',
                     options: {
-                        sourceType: 'unambiguous',
                         presets: [
                             '@babel/preset-env',
-                            // '@babel/preset-typescript',
+                            '@babel/preset-typescript',
                         ]
                     }
                 }

@@ -2,7 +2,7 @@ export class DocumentSelectionExample {
     constructor(
         configuration = {}
     ) {
-        this.numbers = [1, 3, 4, 7, 9];
+        this.numbers = [1, 3, 4, 7, 9, 10, 12];
         this.init();
     }
 
