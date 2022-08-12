@@ -3,6 +3,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 
 const helpers = require('./helpers');
+const path = require('path');
  
 module.exports = {
     entry: './src/main.ts',
@@ -55,7 +56,7 @@ module.exports = {
                 use: {
                     loader: 'file-loader',
                     options: {
-                        publicPath: './dist/',
+                        publicPath: './dist/assets',
                         name: '[name].[ext]?[hash]', // hash 위함.
                     }
                 }
@@ -76,7 +77,10 @@ module.exports = {
         new CopyWebpackPlugin(
             {
                 patterns: [
-                    { from: './src/assets/**', to: './assets' }
+                    {
+                        from: './src/assets/**',
+                        to: path.resolve(helpers.root(), 'dist', 'assets', '[name][ext]'),
+                    }
                 ]
             }
         ),
