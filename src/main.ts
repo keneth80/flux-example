@@ -11,6 +11,13 @@ const actionInit = () => {
         }
         return result;
     });
+    addAction('temp_data_list2', () => {
+        const result = [];
+        for (let i = 1; i < 101; i++) {
+            result.push('number.' + i);
+        }
+        return result;
+    });
 };
 
 const drawViewTemplate = (data: any[]) => {
@@ -23,7 +30,7 @@ const excute = () => {
     const button = document
         .getElementById('btn')
         .addEventListener('click', () => {
-            dispatchEventByAction('temp_data_list');
+            dispatchEventByAction('temp_data_list2');
         });
 };
 

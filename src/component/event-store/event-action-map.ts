@@ -48,12 +48,12 @@ export const addEvent = (action: string, func: any): void => {
     }
 };
 
-export const removeActionByFunction = (action: string, func: any): void => {
+export const removeEvent = (action: string, event: any): void => {
     if (eventActionMap.store.storeMap[action] === null) return;
     const funcList: Array<any> = eventActionMap.store.storeMap[action]
         .receivers as Array<any>;
     for (let i = 0; i < funcList.length; i++) {
-        if (funcList[i] === func) {
+        if (funcList[i] === event) {
             funcList.splice(i, 1);
             return;
         }
