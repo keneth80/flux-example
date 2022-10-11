@@ -3,14 +3,14 @@ import { EventDispatcher } from './event-dispatcher';
 export class EventActionMap {
     public static instance: EventActionMap;
 
-    private _store: EventDispatcher;
+    private _dispatcher: EventDispatcher;
 
-    public get store(): EventDispatcher {
-        return this._store;
+    public get dispatcher(): EventDispatcher {
+        return this._dispatcher;
     }
 
     constructor() {
-        this._store = new EventDispatcher();
+        this._dispatcher = new EventDispatcher();
     }
 
     public static getInstance(): EventActionMap {
@@ -23,25 +23,25 @@ export class EventActionMap {
 const eventActionMap: EventActionMap = EventActionMap.getInstance();
 
 export const addAction = (action: string, func: any): void => {
-    if (!eventActionMap.store.storeMap[action]) {
-        eventActionMap.store.storeMap[action] = {
+    if (!eventActionMap.dispatcher.store[action]) {
+        eventActionMap.dispatcher.store[action] = {
             data: {},
             action: func,
             receivers: [],
         };
     } else {
-        eventActionMap.store.storeMap[action].action = func;
+        eventActionMap.dispatcher.store[action].action = func;
     }
 };
 
 export const addEvent = (action: string, func: any): void => {
-    if (!eventActionMap.store.storeMap[action]) {
-        eventActionMap.store.storeMap[action] = {
+    if (!eventActionMap.dispatcher.store[action]) {
+        eventActionMap.dispatcher.store[action] = {
             data: {},
             receivers: [],
         };
     }
-    const funcList: Array<any> = eventActionMap.store.storeMap[action]
+    const funcList: Array<any> = eventActionMap.dispatcher.store[action]
         .receivers as Array<any>;
     if (!funcList.some((x) => x === func)) {
         funcList.push(func);
@@ -49,8 +49,8 @@ export const addEvent = (action: string, func: any): void => {
 };
 
 export const removeEvent = (action: string, event: any): void => {
-    if (eventActionMap.store.storeMap[action] === null) return;
-    const funcList: Array<any> = eventActionMap.store.storeMap[action]
+    if (eventActionMap.dispatcher.store[action] === null) return;
+    const funcList: Array<any> = eventActionMap.dispatcher.store[action]
         .receivers as Array<any>;
     for (let i = 0; i < funcList.length; i++) {
         if (funcList[i] === event) {
@@ -61,16 +61,16 @@ export const removeEvent = (action: string, event: any): void => {
 };
 
 export const removeAction = (action: string): void => {
-    if (eventActionMap.store.storeMap[action] === null) return;
-    const funcList: Array<any> = eventActionMap.store.storeMap[action]
+    if (eventActionMap.dispatcher.store[action] === null) return;
+    const funcList: Array<any> = eventActionMap.dispatcher.store[action]
         .receivers as Array<any>;
     funcList.length = 0;
-    eventActionMap.store.storeMap[action] = null;
+    eventActionMap.dispatcher.store[action] = null;
 };
 
 export const clearActionAll = (): void => {
-    for (const action in eventActionMap.store.storeMap) {
-        if (eventActionMap.store.storeMap.hasOwnProperty(action)) {
+    for (const action in eventActionMap.dispatcher.store) {
+        if (eventActionMap.dispatcher.store.hasOwnProperty(action)) {
             removeAction(action);
         }
     }

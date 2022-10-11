@@ -1,4 +1,4 @@
-export interface StringMap {
+export interface StoreMap {
     [key: string]: {
         data: any;
         action?: any;
@@ -8,14 +8,14 @@ export interface StringMap {
 
 export class EventDispatcher {
     public static ACTION_STORE_EVENT = 'action_store_event';
-    private _storeMap: StringMap;
+    private _store: StoreMap;
 
-    public get storeMap(): StringMap {
-        return this._storeMap;
+    public get store(): StoreMap {
+        return this._store;
     }
 
     constructor() {
-        this._storeMap = {};
+        this._store = {};
         this.addStoreEvent();
     }
 
@@ -23,7 +23,7 @@ export class EventDispatcher {
         addEventListener(
             EventDispatcher.ACTION_STORE_EVENT,
             (event: any): void => {
-                const currentAction = this.storeMap[event.detail.action];
+                const currentAction = this.store[event.detail.action];
                 if (currentAction) {
                     // action 등록여부에 따라 실행 후 데이터를 저장.
                     const data = currentAction.action
