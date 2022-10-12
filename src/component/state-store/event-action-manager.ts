@@ -25,7 +25,7 @@ export class EventActionManager {
 export const eventActionManager: EventActionManager =
     EventActionManager.getInstance();
 
-export const addAction = (action: STATE_EVENT_CODE, func: any): void => {
+export const addAction = (action: STATE_EVENT_CODE, func: Function): void => {
     if (!store.data[action]) {
         store.data[action] = {
             data: {},
@@ -37,7 +37,7 @@ export const addAction = (action: STATE_EVENT_CODE, func: any): void => {
     }
 };
 
-export const addEvent = (action: STATE_EVENT_CODE, func: any): void => {
+export const addEvent = (action: STATE_EVENT_CODE, func: Function): void => {
     if (!store.data[action]) {
         store.data[action] = {
             data: {},
@@ -50,7 +50,10 @@ export const addEvent = (action: STATE_EVENT_CODE, func: any): void => {
     }
 };
 
-export const removeEvent = (action: STATE_EVENT_CODE, event: any): void => {
+export const removeEvent = (
+    action: STATE_EVENT_CODE,
+    event: Function
+): void => {
     if (store.data[action] === null) return;
     const funcList: Array<any> = store.data[action].receivers as Array<any>;
     for (let i = 0; i < funcList.length; i++) {
