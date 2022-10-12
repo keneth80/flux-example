@@ -1,17 +1,18 @@
 import './main-style.css';
 import { DocumentSelectionExample } from './component/document-selection-example';
-import { addAction } from './component/event-store';
-import { dispatchEventByAction } from './component/event-store';
+import { addAction } from './component/state-store';
+import { dispatchEventByAction } from './component/state-store';
+import { STATE_EVENT } from './component/state-store/event-const';
 
 const actionInit = () => {
-    addAction('temp_data_list', () => {
+    addAction(STATE_EVENT.EVENT_TEMP_DATA_LIST, () => {
         const result = [];
         for (let i = 1; i < 21; i++) {
             result.push('number.' + i);
         }
         return result;
     });
-    addAction('temp_data_list2', () => {
+    addAction(STATE_EVENT.EVENT_TEMP_DATA_LIST2, () => {
         const result = [];
         for (let i = 1; i < 101; i++) {
             result.push('number.' + i);

@@ -1,4 +1,6 @@
 export * from './event-action-map';
+export * from './event-dispatcher';
+export * from './event-store';
 import { EventDispatcher } from './event-dispatcher';
 
 export const dispatchEventByAction = <T = any>(event: string, param?: T) => {

@@ -1,3 +1,4 @@
+import { STATE_EVENT_CODE } from './event-const';
 import { EventDispatcher } from './event-dispatcher';
 import { store } from './event-store';
 
@@ -23,7 +24,7 @@ export class EventActionMap {
 
 const eventActionMap: EventActionMap = EventActionMap.getInstance();
 
-export const addAction = (action: string, func: any): void => {
+export const addAction = (action: STATE_EVENT_CODE, func: any): void => {
     if (!store.data[action]) {
         store.data[action] = {
             data: {},
@@ -35,7 +36,7 @@ export const addAction = (action: string, func: any): void => {
     }
 };
 
-export const addEvent = (action: string, func: any): void => {
+export const addEvent = (action: STATE_EVENT_CODE, func: any): void => {
     if (!store.data[action]) {
         store.data[action] = {
             data: {},
@@ -48,7 +49,7 @@ export const addEvent = (action: string, func: any): void => {
     }
 };
 
-export const removeEvent = (action: string, event: any): void => {
+export const removeEvent = (action: STATE_EVENT_CODE, event: any): void => {
     if (store.data[action] === null) return;
     const funcList: Array<any> = store.data[action].receivers as Array<any>;
     for (let i = 0; i < funcList.length; i++) {
