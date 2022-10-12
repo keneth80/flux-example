@@ -28,7 +28,7 @@ export const eventActionManager: EventActionManager =
 export const addAction = (action: STATE_EVENT_CODE, func: Function): void => {
     if (!store.data[action]) {
         store.data[action] = {
-            data: {},
+            data: null,
             action: func,
             receivers: [],
         };
@@ -40,7 +40,7 @@ export const addAction = (action: STATE_EVENT_CODE, func: Function): void => {
 export const addEvent = (action: STATE_EVENT_CODE, func: Function): void => {
     if (!store.data[action]) {
         store.data[action] = {
-            data: {},
+            data: null,
             receivers: [],
         };
     }

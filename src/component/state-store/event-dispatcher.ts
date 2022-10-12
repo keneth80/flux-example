@@ -20,7 +20,8 @@ export class EventDispatcher {
                 : undefined;
             if (data) currentAction.data = data;
             // 등록된 데이터를 리시버를 통해 view로 전달.
-            const funcList: Array<any> = currentAction.receivers as Array<any>;
+            const funcList: Array<Function> =
+                currentAction.receivers as Array<Function>;
             for (let i = 0; i < funcList.length; i++) {
                 funcList[i](currentAction.data, detail.param);
             }
