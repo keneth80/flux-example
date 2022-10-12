@@ -1,4 +1,4 @@
-export * from './event-action-map';
+export * from './event-action-manager';
 export * from './event-dispatcher';
 export * from './event-store';
 import { EventDispatcher } from './event-dispatcher';

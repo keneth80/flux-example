@@ -28,11 +28,17 @@ const drawViewTemplate = (data: any[]) => {
 const excute = () => {
     actionInit();
     drawViewTemplate([]);
-    const button = document
-        .getElementById('btn')
-        .addEventListener('click', () => {
-            dispatchEventByAction('temp_data_list2');
+    document.getElementById('btn').addEventListener('click', () => {
+        dispatchEventByAction('temp_data_list');
+    });
+    document.getElementById('btn2').addEventListener('click', () => {
+        dispatchEventByAction('temp_data_list2');
+    });
+    document.getElementById('btn3').addEventListener('click', () => {
+        dispatchEventByAction('temp_data_list3', {
+            data: ['param1', 'param2', 'param3'],
         });
+    });
 };
 
 excute();

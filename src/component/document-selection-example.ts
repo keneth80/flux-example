@@ -1,5 +1,5 @@
 import { addEvent, removeEvent } from './state-store';
-import { STATE_EVENTS, STATE_EVENT_CODE } from './state-store/event-const';
+import { STATE_EVENTS } from './state-store/event-const';
 
 export class DocumentSelectionExample {
     private numbers: Array<string> = [];
@@ -11,6 +11,7 @@ export class DocumentSelectionExample {
     init() {
         addEvent(STATE_EVENTS.EVENT_TEMP_DATA_LIST, this.tempDataList);
         addEvent(STATE_EVENTS.EVENT_TEMP_DATA_LIST2, this.tempDataList2);
+        addEvent(STATE_EVENTS.EVENT_TEMP_DATA_LIST3, this.tempDataList3);
     }
 
     selection() {
@@ -21,17 +22,21 @@ export class DocumentSelectionExample {
     destroy() {
         removeEvent(STATE_EVENTS.EVENT_TEMP_DATA_LIST, this.tempDataList);
         removeEvent(STATE_EVENTS.EVENT_TEMP_DATA_LIST2, this.tempDataList2);
+        removeEvent(STATE_EVENTS.EVENT_TEMP_DATA_LIST3, this.tempDataList3);
     }
 
     tempDataList = (result: any) => {
-        console.log('result : ', result);
         this.numbers = result;
         this.selection();
     };
 
     tempDataList2 = (result: any) => {
-        console.log('result2 : ', result);
         this.numbers = result;
+        this.selection();
+    };
+
+    tempDataList3 = (result: any, param: any) => {
+        this.numbers = param.data;
         this.selection();
     };
 }
