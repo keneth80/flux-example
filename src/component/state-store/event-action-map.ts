@@ -2,8 +2,8 @@ import { STATE_EVENT_CODE } from './event-const';
 import { EventDispatcher } from './event-dispatcher';
 import { store } from './event-store';
 
-export class EventActionMap {
-    public static instance: EventActionMap;
+export class EventActionManager {
+    public static instance: EventActionManager;
 
     private _dispatcher: EventDispatcher;
 
@@ -15,14 +15,15 @@ export class EventActionMap {
         this._dispatcher = new EventDispatcher();
     }
 
-    public static getInstance(): EventActionMap {
-        return !EventActionMap.instance
-            ? (EventActionMap.instance = new EventActionMap())
-            : EventActionMap.instance;
+    public static getInstance(): EventActionManager {
+        return !EventActionManager.instance
+            ? (EventActionManager.instance = new EventActionManager())
+            : EventActionManager.instance;
     }
 }
 
-const eventActionMap: EventActionMap = EventActionMap.getInstance();
+export const eventActionManager: EventActionManager =
+    EventActionManager.getInstance();
 
 export const addAction = (action: STATE_EVENT_CODE, func: any): void => {
     if (!store.data[action]) {
@@ -60,7 +61,7 @@ export const removeEvent = (action: STATE_EVENT_CODE, event: any): void => {
     }
 };
 
-export const removeAction = (action: string): void => {
+export const removeAction = (action: STATE_EVENT_CODE): void => {
     if (store.data[action] === null) return;
     const funcList: Array<any> = store.data[action].receivers as Array<any>;
     funcList.length = 0;
@@ -70,7 +71,7 @@ export const removeAction = (action: string): void => {
 export const clearActionAll = (): void => {
     for (const action in store.data) {
         if (store.data.hasOwnProperty(action)) {
-            removeAction(action);
+            removeAction(action as STATE_EVENT_CODE);
         }
     }
 };

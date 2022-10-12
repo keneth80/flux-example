@@ -2,17 +2,17 @@ import './main-style.css';
 import { DocumentSelectionExample } from './component/document-selection-example';
 import { addAction } from './component/state-store';
 import { dispatchEventByAction } from './component/state-store';
-import { STATE_EVENT } from './component/state-store/event-const';
+import { STATE_EVENTS } from './component/state-store/event-const';
 
 const actionInit = () => {
-    addAction(STATE_EVENT.EVENT_TEMP_DATA_LIST, () => {
+    addAction(STATE_EVENTS.EVENT_TEMP_DATA_LIST, () => {
         const result = [];
         for (let i = 1; i < 21; i++) {
             result.push('number.' + i);
         }
         return result;
     });
-    addAction(STATE_EVENT.EVENT_TEMP_DATA_LIST2, () => {
+    addAction(STATE_EVENTS.EVENT_TEMP_DATA_LIST2, () => {
         const result = [];
         for (let i = 1; i < 101; i++) {
             result.push('number.' + i);
