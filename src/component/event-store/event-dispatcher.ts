@@ -1,21 +1,9 @@
-export interface StoreMap {
-    [key: string]: {
-        data: any;
-        action?: any;
-        receivers: Array<any>;
-    };
-}
+import { store } from './event-store';
 
 export class EventDispatcher {
     public static ACTION_STORE_EVENT = 'action_store_event';
-    private _store: StoreMap;
-
-    public get store(): StoreMap {
-        return this._store;
-    }
 
     constructor() {
-        this._store = {};
         this.addStoreEvent();
     }
 
@@ -23,7 +11,7 @@ export class EventDispatcher {
         addEventListener(
             EventDispatcher.ACTION_STORE_EVENT,
             (event: any): void => {
-                const currentAction = this.store[event.detail.action];
+                const currentAction = store.data[event.detail.action];
                 if (currentAction) {
                     // action 등록여부에 따라 실행 후 데이터를 저장.
                     const data = currentAction.action
