@@ -29,13 +29,13 @@ const excute = () => {
     actionInit();
     drawViewTemplate([]);
     document.getElementById('btn').addEventListener('click', () => {
-        dispatchEventByAction('temp_data_list');
+        dispatchEventByAction(STATE_EVENTS.EVENT_TEMP_DATA_LIST);
     });
     document.getElementById('btn2').addEventListener('click', () => {
-        dispatchEventByAction('temp_data_list2');
+        dispatchEventByAction(STATE_EVENTS.EVENT_TEMP_DATA_LIST2);
     });
     document.getElementById('btn3').addEventListener('click', () => {
-        dispatchEventByAction('temp_data_list3', {
+        dispatchEventByAction(STATE_EVENTS.EVENT_TEMP_DATA_LIST3, {
             data: ['param1', 'param2', 'param3'],
         });
     });
