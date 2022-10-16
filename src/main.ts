@@ -21,13 +21,13 @@ const actionInit = () => {
     });
 };
 
-const drawViewTemplate = (data: any[]) => {
-    const iuComponent = new DocumentSelectionExample();
+const drawViewTemplate = () => {
+    new DocumentSelectionExample();
 };
 
 const excute = () => {
     actionInit();
-    drawViewTemplate([]);
+    drawViewTemplate();
     document.getElementById('btn').addEventListener('click', () => {
         dispatchEventByAction(STATE_EVENTS.EVENT_TEMP_DATA_LIST);
     });
@@ -35,7 +35,7 @@ const excute = () => {
         dispatchEventByAction(STATE_EVENTS.EVENT_TEMP_DATA_LIST2);
     });
     document.getElementById('btn3').addEventListener('click', () => {
-        dispatchEventByAction(STATE_EVENTS.EVENT_TEMP_DATA_LIST3, {
+        dispatchEventByAction<{data: Array<string>}>(STATE_EVENTS.EVENT_TEMP_DATA_LIST3, {
             data: ['param1', 'param2', 'param3'],
         });
     });
