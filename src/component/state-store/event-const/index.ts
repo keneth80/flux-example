@@ -1,3 +1,4 @@
+// 데이터를 변경하는 이벤트에 대한 명시.
 export const STATE_EVENTS = {
     EVENT_TEMP_DATA_LIST: 'temp_data_list',
     EVENT_TEMP_DATA_LIST2: 'temp_data_list2',

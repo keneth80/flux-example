@@ -2,6 +2,7 @@ import { STATE_EVENT_CODE } from './event-const';
 import { EventDispatcher } from './event-dispatcher';
 import { store } from './event-store';
 
+// state manager를 총괄하는 instance
 export class EventActionManager {
     public static instance: EventActionManager;
 

@@ -6,6 +6,7 @@ export interface StoreMap {
     };
 }
 
+// event map을 저장하고 있는 instance
 class EventStore {
     public static instance: EventStore;
 

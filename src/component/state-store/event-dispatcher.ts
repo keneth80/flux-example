@@ -1,5 +1,6 @@
 import { store } from './event-store';
 
+// data를 관리하고 리시버로 흘려보내는 event 중앙관리 instance
 export class EventDispatcher {
     public static ACTION_STORE_EVENT = 'action_store_event';
 
@@ -8,10 +9,10 @@ export class EventDispatcher {
     }
 
     private addStoreEvent() {
-        addEventListener(EventDispatcher.ACTION_STORE_EVENT, this.executeEvent);
+        addEventListener(EventDispatcher.ACTION_STORE_EVENT, this.executeEvent as EventListener);
     }
 
-    private executeEvent = ({ detail }: any): void => {
+    private executeEvent = ({ detail }: CustomEvent): void => {
         const currentAction = store.data[detail.action];
         if (currentAction) {
             // action 등록여부에 따라 실행 후 데이터를 저장.
