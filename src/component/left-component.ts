@@ -14,7 +14,6 @@ export class LeftComponent {
     init() {
         this.leftLabel = document.querySelector('#left-label') as HTMLElement;
         this.navContainer = document.querySelector('#nav-list') as HTMLElement;
-        console.log('this.navContainer : ', this.navContainer);
         addEvent(STATE_EVENTS.EVENT_TEMP_DATA_LIST, this.tempDataList);
     }
 
