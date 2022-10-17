@@ -1,9 +1,9 @@
 import './main-style.css';
+import { addAction } from './component/state-store';
+import { STATE_EVENTS } from './component/state-store/event-const';
 import { TopComponent } from './component/top-component';
 import { LeftComponent } from './component/left-component';
 import { BodyComponent } from './component/body-component';
-import { addAction } from './component/state-store';
-import { STATE_EVENTS } from './component/state-store/event-const';
 
 // 최초 action에 대한 설정
 const actionInit = () => {
