@@ -1,7 +1,7 @@
 import { addEvent, removeEvent } from './state-store';
 import { STATE_EVENTS } from './state-store/event-const';
 
-export class DocumentSelectionExample {
+export class BodyComponent {
     private numbers: Array<string> = [];
 
     constructor() {

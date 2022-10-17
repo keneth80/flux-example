@@ -1,15 +1,52 @@
+* {
+    box-sizing: border-box;
+}
+
+header {
+    background-color: #666;
+    padding: 30px;
+    text-align: center;
+    font-size: 35px;
+    color: white;
+}
+
+nav {
+    float: left;
+    width: 20%;
+    height: 300px; /* only for demonstration, should be removed */
+    background: #ccc;
+    padding: 20px;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    overflow: auto;
+    height: 80%;
+}
+
+article {
+    float: left;
+    padding: 20px;
+    width: 80%;
+    background-color: #f1f1f1;
+    height: 300px;
+}
+
+section::after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+@media (max-width: 600px) {
+    nav,
+    article {
+        width: 100%;
+        height: auto;
+    }
+}
+
 #result {
-    border: 2px solid #888;
     background-color: #eee;
-}
-
-svg {
-    display: block;
-    width: 500px;
-    height: 350px;
-    background-color: #fff;
-}
-
-.bar { 
-    fill: steelblue; 
 }

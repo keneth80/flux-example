@@ -1,5 +1,7 @@
 import './main-style.css';
-import { DocumentSelectionExample } from './component/document-selection-example';
+import { TopComponent } from './component/top-component';
+import { LeftComponent } from './component/left-component';
+import { BodyComponent } from './component/body-component';
 import { addAction } from './component/state-store';
 import { dispatchEventByAction } from './component/state-store';
 import { STATE_EVENTS } from './component/state-store/event-const';
@@ -22,7 +24,9 @@ const actionInit = () => {
 };
 
 const drawViewTemplate = () => {
-    new DocumentSelectionExample();
+    new TopComponent();
+    new LeftComponent();
+    new BodyComponent();
 };
 
 const excute = () => {
@@ -35,9 +39,12 @@ const excute = () => {
         dispatchEventByAction(STATE_EVENTS.EVENT_TEMP_DATA_LIST2);
     });
     document.getElementById('btn3').addEventListener('click', () => {
-        dispatchEventByAction<{data: Array<string>}>(STATE_EVENTS.EVENT_TEMP_DATA_LIST3, {
-            data: ['param1', 'param2', 'param3'],
-        });
+        dispatchEventByAction<{ data: Array<string> }>(
+            STATE_EVENTS.EVENT_TEMP_DATA_LIST3,
+            {
+                data: ['param1', 'param2', 'param3'],
+            }
+        );
     });
 };
 
